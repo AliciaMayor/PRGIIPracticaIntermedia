@@ -10,19 +10,19 @@ import java.util.Scanner;
 
 public class Puzzle {
 		
-	private int[][] arrayData;
+	private ArrayList<int[]> arrayListData = new ArrayList<int[]>();
 	
 	/**
 	* Getter
-	* @return arrayDate: the array where the input data is saved
+	* @return arrayListData: the arrayList where the input data is saved
 	*/
-	public int[][] getArrayData() {
+	public ArrayList<int[]> getArrayListData() {
 		
-		return this.arrayData;
+		return this.arrayListData;
 	}
 	
 	/**
-	* Method that fills arrayPieces with the information about the pieces
+	* Method that fills arrayListData with the informattion that the user inserts
 	* @Param Scanner scan, the scan with which the input is collected
 	* @Return boolean, true in case that the data is correct and false in case it is incorrect (The game can not be played then)
 	*/
@@ -48,16 +48,16 @@ public class Puzzle {
 		//Calculamos la dimensión de la matriz que coge los datos ya que sabemos cuantos numeros hay en la linea
 		int dimension = numbersOfRow.length;
 		
-//		arrayData = new int[dimension][dimension];
-//		int[][] prueba = new int[numbersPerRow][numbersPerRow];
+		//Creamos array de esa longitud para meter la primera fila en forma de array en la primera posicion del arrayList
+		int[] arrayFirstRow = new int[dimension];
 		
-		//Rellenamos la primera fila del array de Datos con la primera fila introducida por el usuario
+		//Rellenamos el primer array del ArrayList con los datos de la primera fila
 		for(int i=0; i<dimension; i++) {
 			
-			arrayData[0][i] = Integer.parseInt(numbersOfRow[i]);
+			arrayFirstRow[i] = Integer.parseInt(numbersOfRow[i]);
 		}
 		
-		int numLine = 1;
+		arrayListData.add(arrayFirstRow);
 		
 		//Rellenamos el resto de filas de la matriz, desde la segunda ya que la primera ya está cubierta
 		while(scan.hasNextLine()) { //Para parar la entrada hacer ctrl+d
@@ -76,13 +76,16 @@ public class Puzzle {
 			
 			String[] numbersOfRows = line.split(" ");
 			
-			//Rellenamos la fila correspondiente de la matriz de datos con los numeros de la linea introducida
+			int[] arrayRow = new int[dimension];
+			
+			//Rellenamos el array correspondiente a la linea de la matriz que se está introduciendo
 			for(int k=0; k<dimension; k++) {
 				
-				arrayData[numLine][k] = Integer.parseInt(numbersOfRows[k]);
+				arrayRow[k] = Integer.parseInt(numbersOfRows[k]);
 			}
 			
-			numLine++;
+			arrayListData.add(arrayRow);
+			
 		}
 		
 		return true;

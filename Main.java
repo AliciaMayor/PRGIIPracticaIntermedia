@@ -1,5 +1,6 @@
 package zigzag;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Main {
@@ -26,20 +27,38 @@ public class Main {
 		
 		scan.close();
 		
-		/*COMPROBACIÓN DE QUE ESTOY GUARDANDO BIEN LOS DATOS EN LA MATRIZ ARRAYDATA*/
-		int[][] arrayDataTest = game.getArrayData();
-		int dimension = arrayDataTest.length;
+//		/*COMPROBACIÓN DE QUE ESTOY GUARDANDO BIEN LOS DATOS EN LA MATRIZ ARRAYDATA*/
+//		int[][] arrayDataTest = game.getArrayData();
+//		int dimension = arrayDataTest.length;
+//		
+//		for(int i=0; i<dimension; i++) {
+//			
+//			for(int j=0; j<dimension; j++) {
+//				
+//				System.out.print(arrayDataTest[i][j] + " ");
+//			}
+//			
+//			System.out.print("\n");
+//		}
+//		/* FIN COMPROBACIÓN DE QUE ESTOY GUARDANDO BIEN LOS DATOS EN LA MATRIZ ARRAYDATA*/
 		
-		for(int i=0; i<dimension; i++) {
+		/*COMPROBACIÓN DE QUE ESTOY GUARDANDO BIEN LOS DATOS  EL ARRAYLIST*/
+		ArrayList<int[]> tryArrayList = game.getArrayListData();
+		int dimensionArrayList = tryArrayList.size();
+		
+		for(int i=0; i<dimensionArrayList; i++) {
 			
-			for(int j=0; j<dimension; j++) {
+			int[] arrayToPrint = tryArrayList.get(i);
+			int lengthArrayToPrint = arrayToPrint.length;
+			
+			for(int j=0; j<lengthArrayToPrint; j++) {
 				
-				System.out.print(arrayDataTest[i][j] + " ");
+				System.out.print(arrayToPrint[j] + " ");
 			}
 			
 			System.out.print("\n");
 		}
-		/* FIN COMPROBACIÓN DE QUE ESTOY GUARDANDO BIEN LOS DATOS EN LA MATRIZ ARRAYDATA*/
+		/* FIN COMPROBACIÓN DE QUE ESTOY GUARDANDO BIEN LOS DATOS EN EL ARRAYLIST*/
 	}
 	
 	
