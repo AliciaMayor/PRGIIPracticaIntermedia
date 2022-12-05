@@ -25,6 +25,8 @@ public class Main {
 			System.out.println("Entrada correcta.");
 		}
 		
+		game.initializateArrays();
+		
 		scan.close();
 		
 //		/*COMPROBACIÓN DE QUE ESTOY GUARDANDO BIEN LOS DATOS EN LA MATRIZ ARRAYDATA*/
@@ -42,7 +44,9 @@ public class Main {
 //		}
 //		/* FIN COMPROBACIÓN DE QUE ESTOY GUARDANDO BIEN LOS DATOS EN LA MATRIZ ARRAYDATA*/
 		
-		/*COMPROBACIÓN DE QUE ESTOY GUARDANDO BIEN LOS DATOS  EL ARRAYLIST*/
+		/* COMPROBACIÓN DE QUE ESTOY GUARDANDO BIEN LOS DATOS  EL ARRAYLIST*/
+		System.out.println("\n---------------Comprobación arrayList---------------\n");
+		
 		ArrayList<int[]> tryArrayList = game.getArrayListData();
 		int dimensionArrayList = tryArrayList.size();
 		
@@ -59,6 +63,27 @@ public class Main {
 			System.out.print("\n");
 		}
 		/* FIN COMPROBACIÓN DE QUE ESTOY GUARDANDO BIEN LOS DATOS EN EL ARRAYLIST*/
+		
+		/* COMPROBACIÓN DE QUE COJO BIEN LAS FILAS Y COLUMNAS COMO ATRIBUTOS DE CLASE*/
+		System.out.println("\n---------------Comprobación filas y columnas ---------------\n");
+		
+		int rows = game.getRows();
+		int columns = game.getColumns();
+				
+		System.out.println("Filas: " + rows + "  Columnas: " + columns);
+		/* FIN COMPROBACIÓN DE QUE COJO BIEN LAS FILAS Y COLUMNAS COMO ATRIBUTOS DE CLASE*/
+		
+		/* COMPROBACIÓN DE QUE COJO BIEN LAS FILAS Y COLUMNAS COMO ATRIBUTOS DE CLASE*/
+		System.out.println("\n---------------Comprobación maximo y minimo---------------\n");
+		
+		int min = game.getMin();
+		int max = game.getMax();
+				
+		System.out.println("Maximo: " + max + "  Mínimo: " + min);
+		/* FIN COMPROBACIÓN DE QUE COJO BIEN LAS FILAS Y COLUMNAS COMO ATRIBUTOS DE CLASE*/
+		
+		
+		//COMPROBAR TODOS LOS ARRAYS 
 	}
 	
 	
