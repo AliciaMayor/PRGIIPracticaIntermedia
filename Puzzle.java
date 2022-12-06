@@ -324,6 +324,14 @@ public class Puzzle {
 		}
 		
 		//La matriz de pposibles soluciones la inicializamos a -1, ya que es un valor que no es posible en la matriz 
+		this.initializatePosibleSolutions();
+	}
+	
+	/**
+	* Method that fills the posible solutions array with -1 in order to have a black canvas to fill with the possible positions
+	*/
+	public void initializatePosibleSolutions() {
+		
 		for(int h=0; h<8; h++) {
 			
 			for(int g=0; g<2; g++) {
@@ -334,10 +342,10 @@ public class Puzzle {
 	}
 	
 	/**
-	* Method that chekcs if a posible solution is to go up
+	* Method that checks if a possible solution is to go up
 	* @param i, row in which we are situated
 	* @param j, column in which we are situated
-	* @return boolean, true if it is a posible solution, false in casi it is not
+	* @return boolean, true if it is a possible solution, false in case it is not
 	*/
 	public boolean checkUp(int i, int j) {
 		
@@ -362,7 +370,7 @@ public class Puzzle {
 					this.posibleSolutions[0][0] = i-1;
 					this.posibleSolutions[0][1] = j;
 					
-					this.arrayData[i][j]=0; //Si es solucion ponemos a 0 la posicion actual para no volver a ella
+//					this.arrayData[i][j]=0; //Si es solucion ponemos a 0 la posicion actual para no volver a ella
 				}
 			}
 			//Sino, nos basta con que sea una unidad más que el actual
@@ -375,14 +383,363 @@ public class Puzzle {
 					this.posibleSolutions[0][0] = i-1;
 					this.posibleSolutions[0][1] = j;
 					
-					this.arrayData[i][j]=0;
+//					this.arrayData[i][j]=0;
 				}
 			}
 		}
 		
 		return posibleSolution;
-	}	
+	}
 	
+	/**
+	* Method that checks if a possible solution is to go down
+	* @param i, row in which we are situated
+	* @param j, column in which we are situated
+	* @return boolean, true if it is a possible solution, false in case it is not
+	*/
+	public boolean checkDown(int i, int j) {
+		
+		boolean posibleSolution =  false;
+		int numberActualPosition = this.arrayData[i][j];
+		
+		//Para i=0 no podemos ir hacia arriba porque se sale fuera de los bordes del array
+		if(i!=this.rows-1) {
+			
+			//Guardamos el numero que hay en la posicion de arriba
+			int numberDown = this.arrayData[i+1][j];
+			
+			//Si la posicion actual es el numero maximo del array, hay que buscar que el siguiente sea el minimo
+			if(numberActualPosition == this.max) {
+				
+				//Chequeamos que la posicion a la que vamos no sea 0, ya que eso indicaria que ya hemos pasado por ahi
+				if((numberDown== this.min) && (numberDown!=0)) {
+					
+					posibleSolution = true;
+					
+					//Guardamos la posible solución para al tener todas calculadas elegir la que es mayor lexicograficamente
+					this.posibleSolutions[1][0] = i+1;
+					this.posibleSolutions[1][1] = j;
+					
+//					this.arrayData[i][j]=0; //Si es solucion ponemos a 0 la posicion actual para no volver a ella
+				}
+			}
+			//Sino, nos basta con que sea una unidad más que el actual
+			else {
+				
+				if((numberDown == numberActualPosition+1) && (numberDown!=0)) {
+					
+					posibleSolution = true;
+					
+					this.posibleSolutions[1][0] = i+1;
+					this.posibleSolutions[1][1] = j;
+					
+//					this.arrayData[i][j]=0;
+				}
+			}
+		}
+		
+		return posibleSolution;
+	}
+	
+	/**
+	* Method that checks if a possible solution is to go right
+	* @param i, row in which we are situated
+	* @param j, column in which we are situated
+	* @return boolean, true if it is a possible solution, false in case it is not
+	*/
+	public boolean checkRight(int i, int j) {
+		
+		boolean posibleSolution =  false;
+		int numberActualPosition = this.arrayData[i][j];
+		
+		//Para i=0 no podemos ir hacia arriba porque se sale fuera de los bordes del array
+		if(j!=this.columns-1) {
+			
+			//Guardamos el numero que hay en la posicion de arriba
+			int numberRight = this.arrayData[i][j+1];
+			
+			//Si la posicion actual es el numero maximo del array, hay que buscar que el siguiente sea el minimo
+			if(numberActualPosition == this.max) {
+				
+				//Chequeamos que la posicion a la que vamos no sea 0, ya que eso indicaria que ya hemos pasado por ahi
+				if((numberRight== this.min) && (numberRight!=0)) {
+					
+					posibleSolution = true;
+					
+					//Guardamos la posible solución para al tener todas calculadas elegir la que es mayor lexicograficamente
+					this.posibleSolutions[2][0] = i;
+					this.posibleSolutions[2][1] = j+1;
+					
+//					this.arrayData[i][j]=0; //Si es solucion ponemos a 0 la posicion actual para no volver a ella
+				}
+			}
+			//Sino, nos basta con que sea una unidad más que el actual
+			else {
+				
+				if((numberRight == numberActualPosition+1) && (numberRight!=0)) {
+					
+					posibleSolution = true;
+					
+					this.posibleSolutions[2][0] = i;
+					this.posibleSolutions[2][1] = j+1;
+					
+//					this.arrayData[i][j]=0;
+				}
+			}
+		}
+		
+		return posibleSolution;
+	}
+	
+	/**
+	* Method that checks if a possible solution is to go left
+	* @param i, row in which we are situated
+	* @param j, column in which we are situated
+	* @return boolean, true if it is a possible solution, false in case it is not
+	*/
+	public boolean checkLeft(int i, int j) {
+		
+		boolean posibleSolution =  false;
+		int numberActualPosition = this.arrayData[i][j];
+		
+		//Para i=0 no podemos ir hacia arriba porque se sale fuera de los bordes del array
+		if(j!=0) {
+			
+			//Guardamos el numero que hay en la posicion de arriba
+			int numberLeft = this.arrayData[i][j-1];
+			
+			//Si la posicion actual es el numero maximo del array, hay que buscar que el siguiente sea el minimo
+			if(numberActualPosition == this.max) {
+				
+				//Chequeamos que la posicion a la que vamos no sea 0, ya que eso indicaria que ya hemos pasado por ahi
+				if((numberLeft== this.min) && (numberLeft!=0)) {
+					
+					posibleSolution = true;
+					
+					//Guardamos la posible solución para al tener todas calculadas elegir la que es mayor lexicograficamente
+					this.posibleSolutions[3][0] = i;
+					this.posibleSolutions[3][1] = j-1;
+					
+//					this.arrayData[i][j]=0; //Si es solucion ponemos a 0 la posicion actual para no volver a ella
+				}
+			}
+			//Sino, nos basta con que sea una unidad más que el actual
+			else {
+				
+				if((numberLeft == numberActualPosition+1) && (numberLeft!=0)) {
+					
+					posibleSolution = true;
+					
+					this.posibleSolutions[3][0] = i;
+					this.posibleSolutions[3][1] = j-1;
+					
+//					this.arrayData[i][j]=0;
+				}
+			}
+		}
+		
+		return posibleSolution;
+	}
+	
+	/**
+	* Method that checks if a possible solution is to go up and right (diagonal)
+	* @param i, row in which we are situated
+	* @param j, column in which we are situated
+	* @return boolean, true if it is a possible solution, false in case it is not
+	*/
+	public boolean checkUpRight(int i, int j) {
+		
+		boolean posibleSolution =  false;
+		int numberActualPosition = this.arrayData[i][j];
+		
+		//Para i=0 no podemos ir hacia arriba porque se sale fuera de los bordes del array
+		if(i!=0 && j!=this.columns-1) {
+			
+			//Guardamos el numero que hay en la posicion de arriba
+			int numberUpRight = this.arrayData[i-1][j+1];
+			
+			//Si la posicion actual es el numero maximo del array, hay que buscar que el siguiente sea el minimo
+			if(numberActualPosition == this.max) {
+				
+				//Chequeamos que la posicion a la que vamos no sea 0, ya que eso indicaria que ya hemos pasado por ahi
+				if((numberUpRight== this.min) && (numberUpRight!=0)) {
+					
+					posibleSolution = true;
+					
+					//Guardamos la posible solución para al tener todas calculadas elegir la que es mayor lexicograficamente
+					this.posibleSolutions[4][0] = i-1;
+					this.posibleSolutions[4][1] = j+1;
+					
+//					this.arrayData[i][j]=0; //Si es solucion ponemos a 0 la posicion actual para no volver a ella
+				}
+			}
+			//Sino, nos basta con que sea una unidad más que el actual
+			else {
+				
+				if((numberUpRight == numberActualPosition+1) && (numberUpRight!=0)) {
+					
+					posibleSolution = true;
+					
+					this.posibleSolutions[4][0] = i-1;
+					this.posibleSolutions[4][1] = j+1;
+					
+//					this.arrayData[i][j]=0;
+				}
+			}
+		}
+		
+		return posibleSolution;
+	}
+	
+	/**
+	* Method that checks if a possible solution is to go up and left (diagonal)
+	* @param i, row in which we are situated
+	* @param j, column in which we are situated
+	* @return boolean, true if it is a possible solution, false in case it is not
+	*/
+	public boolean checkUpLeft(int i, int j) {
+		
+		boolean posibleSolution =  false;
+		int numberActualPosition = this.arrayData[i][j];
+		
+		//Para i=0 no podemos ir hacia arriba porque se sale fuera de los bordes del array
+		if(i!=0 && j!=0) {
+			
+			//Guardamos el numero que hay en la posicion de arriba
+			int numberUpLeft = this.arrayData[i-1][j-1];
+			
+			//Si la posicion actual es el numero maximo del array, hay que buscar que el siguiente sea el minimo
+			if(numberActualPosition == this.max) {
+				
+				//Chequeamos que la posicion a la que vamos no sea 0, ya que eso indicaria que ya hemos pasado por ahi
+				if((numberUpLeft== this.min) && (numberUpLeft!=0)) {
+					
+					posibleSolution = true;
+					
+					//Guardamos la posible solución para al tener todas calculadas elegir la que es mayor lexicograficamente
+					this.posibleSolutions[5][0] = i-1;
+					this.posibleSolutions[5][1] = j-1;
+					
+//					this.arrayData[i][j]=0; //Si es solucion ponemos a 0 la posicion actual para no volver a ella
+				}
+			}
+			//Sino, nos basta con que sea una unidad más que el actual
+			else {
+				
+				if((numberUpLeft == numberActualPosition+1) && (numberUpLeft!=0)) {
+					
+					posibleSolution = true;
+					
+					this.posibleSolutions[5][0] = i-1;
+					this.posibleSolutions[5][1] = j-1;
+					
+//					this.arrayData[i][j]=0;
+				}
+			}
+		}
+		
+		return posibleSolution;
+	}
+	
+	/**
+	* Method that checks if a possible solution is to go down and right (diagonal)
+	* @param i, row in which we are situated
+	* @param j, column in which we are situated
+	* @return boolean, true if it is a possible solution, false in case it is not
+	*/
+	public boolean checkDownRight(int i, int j) {
+		
+		boolean posibleSolution =  false;
+		int numberActualPosition = this.arrayData[i][j];
+		
+		//Para i=0 no podemos ir hacia arriba porque se sale fuera de los bordes del array
+		if(i!=this.rows-1 && j!=this.columns-1) {
+			
+			//Guardamos el numero que hay en la posicion de arriba
+			int numberDownRight = this.arrayData[i+1][j+1];
+			
+			//Si la posicion actual es el numero maximo del array, hay que buscar que el siguiente sea el minimo
+			if(numberActualPosition == this.max) {
+				
+				//Chequeamos que la posicion a la que vamos no sea 0, ya que eso indicaria que ya hemos pasado por ahi
+				if((numberDownRight== this.min) && (numberDownRight!=0)) {
+					
+					posibleSolution = true;
+					
+					//Guardamos la posible solución para al tener todas calculadas elegir la que es mayor lexicograficamente
+					this.posibleSolutions[6][0] = i+1;
+					this.posibleSolutions[6][1] = j+1;
+					
+//					this.arrayData[i][j]=0; //Si es solucion ponemos a 0 la posicion actual para no volver a ella
+				}
+			}
+			//Sino, nos basta con que sea una unidad más que el actual
+			else {
+				
+				if((numberDownRight == numberActualPosition+1) && (numberDownRight!=0)) {
+					
+					posibleSolution = true;
+					
+					this.posibleSolutions[6][0] = i+1;
+					this.posibleSolutions[6][1] = j+1;
+					
+//					this.arrayData[i][j]=0;
+				}
+			}
+		}
+		
+		return posibleSolution;
+	}
+	
+	/**
+	* Method that checks if a possible solution is to go down and left (diagonal)
+	* @param i, row in which we are situated
+	* @param j, column in which we are situated
+	* @return boolean, true if it is a possible solution, false in case it is not
+	*/
+	public boolean checkDownLeft(int i, int j) {
+		
+		boolean posibleSolution =  false;
+		int numberActualPosition = this.arrayData[i][j];
+		
+		//Para i=0 no podemos ir hacia arriba porque se sale fuera de los bordes del array
+		if(i!=this.rows-1 && j!=0) {
+			
+			//Guardamos el numero que hay en la posicion de arriba
+			int numberDownLeft = this.arrayData[i+1][j-1];
+			
+			//Si la posicion actual es el numero maximo del array, hay que buscar que el siguiente sea el minimo
+			if(numberActualPosition == this.max) {
+				
+				//Chequeamos que la posicion a la que vamos no sea 0, ya que eso indicaria que ya hemos pasado por ahi
+				if((numberDownLeft== this.min) && (numberDownLeft!=0)) {
+					
+					posibleSolution = true;
+					
+					//Guardamos la posible solución para al tener todas calculadas elegir la que es mayor lexicograficamente
+					this.posibleSolutions[7][0] = i+1;
+					this.posibleSolutions[7][1] = j-1;
+					
+//					this.arrayData[i][j]=0; //Si es solucion ponemos a 0 la posicion actual para no volver a ella
+				}
+			}
+			//Sino, nos basta con que sea una unidad más que el actual
+			else {
+				
+				if((numberDownLeft == numberActualPosition+1) && (numberDownLeft!=0)) {
+					
+					posibleSolution = true;
+					
+					this.posibleSolutions[7][0] = i+1;
+					this.posibleSolutions[7][1] = j-1;
+					
+//					this.arrayData[i][j]=0;
+				}
+			}
+		}
+		
+		return posibleSolution;
+	}
 	
 }
 

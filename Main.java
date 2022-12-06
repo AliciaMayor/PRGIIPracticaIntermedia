@@ -32,12 +32,31 @@ public class Main {
 		 * · Si todos los metodos dan falso, backtracking
 		 * · Si uno o varios metodos dan true, comprobar en el array posibles soluciones cual es la mayor lexicografica
 		 * 		y esa es la posicion que pasaremos a los metodos en la siguiente pasada
+		 * 		Además, cuando encontremos la solución a la posicion actual ponerla a 0 para no volver a ella
 		 * */
-		boolean solution = game.checkUp(1, 1);
-		System.out.print(solution);
 		
-		scan.close();
 		
+		
+		scan.close();  
+		
+		/* COMPROBACION DE QUE FUNCIONAN LOS METODOS COMPROBADORES DE SOLUCIONES PARCIALES */
+		boolean solutionUp = game.checkUp(1, 1);
+		boolean solutionDown = game.checkDown(1, 1);
+		boolean solutionRight = game.checkRight(1, 1);
+		boolean solutionLeft = game.checkLeft(1, 1);
+		boolean solutionUpRight = game.checkUpRight(1, 1);
+		boolean solutionUpLeft = game.checkUpLeft(1, 1);
+		boolean solutionDownRight = game.checkDownRight(1, 1);
+		boolean solutionDownLeft = game.checkDownLeft(1, 1);
+		System.out.println(solutionUp);
+		System.out.println(solutionDown);
+		System.out.println(solutionRight);
+		System.out.println(solutionLeft);
+		System.out.println(solutionUpRight);
+		System.out.println(solutionUpLeft);
+		System.out.println(solutionDownRight);
+		System.out.println(solutionDownLeft);
+		/* FIN COMPROBACION DE QUE FUNCIONAN LOS METODOS COMPROBADORES DE SOLUCIONES PARCIALES */
 
 		/* COMPROBACIÓN DE QUE ESTOY GUARDANDO BIEN LOS DATOS  EL ARRAYLIST*/
 		System.out.println("\n---------------Comprobación arrayList---------------\n");
