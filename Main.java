@@ -12,6 +12,9 @@ public class Main {
 		
 		Puzzle game = new Puzzle();
 		
+		int rows = game.getRows();
+		int columns = game.getColumns();
+		
 		//Recogemos la información del ususario
 		Boolean correctInput = game.getDataFromUser(scan);
 		
@@ -22,10 +25,40 @@ public class Main {
 		else {
 			
 			//JUAMOS AL PUZZLE Y VEMOS LAS POSIBLES SOLUCIONES
-			System.out.println("Entrada correcta.");
+	//		System.out.println("Entrada correcta.");
+			
+			game.initializateArrays();
+			
+			int hasSolution = game.play(0, 0);
+			
+			if(hasSolution==0) {
+				
+				System.out.print(hasSolution);
+			}
+			
+			else {
+				
+				System.out.println(hasSolution);
+				
+				int rowsArrayWithSpaces = rows + (rows-1);
+				int columnsArrayWithSpaces = columns + (columns-1);
+				
+				String[][] arrayDataWithSpaces = new String[rowsArrayWithSpaces][columnsArrayWithSpaces];
+				arrayDataWithSpaces = game.getArrayDataWithSpaces();
+				
+				for(int p=0; p<rowsArrayWithSpaces; p++) {
+					
+					for(int o=0; o<columnsArrayWithSpaces; o++) {                                                                          
+						
+						System.out.print(arrayDataWithSpaces[p][o] + " ");
+					}
+					
+					System.out.print("\n");
+				}
+			}
 		}
 		
-		game.initializateArrays();
+		
 		
 		/*IDEA: 
 		 * · Si lo que pasamos por parametro a los metodos de encontrar solucion es la ultima posicion, hemos encontrado solucion
@@ -82,8 +115,7 @@ public class Main {
 		/* COMPROBACIÓN DE QUE COJO BIEN LAS FILAS Y COLUMNAS COMO ATRIBUTOS DE CLASE*/
 		System.out.println("\n---------------Comprobación filas y columnas ---------------\n");
 		
-		int rows = game.getRows();
-		int columns = game.getColumns();
+
 				
 		System.out.println("Filas: " + rows + "  Columnas: " + columns);
 		/* FIN COMPROBACIÓN DE QUE COJO BIEN LAS FILAS Y COLUMNAS COMO ATRIBUTOS DE CLASE*/

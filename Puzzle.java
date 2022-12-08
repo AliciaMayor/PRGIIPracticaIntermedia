@@ -369,8 +369,7 @@ public class Puzzle {
 					//Guardamos la posible solución para al tener todas calculadas elegir la que es mayor lexicograficamente
 					this.posibleSolutions[0][0] = i-1;
 					this.posibleSolutions[0][1] = j;
-					
-//					this.arrayData[i][j]=0; //Si es solucion ponemos a 0 la posicion actual para no volver a ella
+
 				}
 			}
 			//Sino, nos basta con que sea una unidad más que el actual
@@ -382,8 +381,7 @@ public class Puzzle {
 					
 					this.posibleSolutions[0][0] = i-1;
 					this.posibleSolutions[0][1] = j;
-					
-//					this.arrayData[i][j]=0;
+ 
 				}
 			}
 		}
@@ -402,38 +400,28 @@ public class Puzzle {
 		boolean posibleSolution =  false;
 		int numberActualPosition = this.arrayData[i][j];
 		
-		//Para i=0 no podemos ir hacia arriba porque se sale fuera de los bordes del array
+		//Bordes del array
 		if(i!=this.rows-1) {
 			
-			//Guardamos el numero que hay en la posicion de arriba
 			int numberDown = this.arrayData[i+1][j];
-			
-			//Si la posicion actual es el numero maximo del array, hay que buscar que el siguiente sea el minimo
+
 			if(numberActualPosition == this.max) {
 				
-				//Chequeamos que la posicion a la que vamos no sea 0, ya que eso indicaria que ya hemos pasado por ahi
 				if((numberDown== this.min) && (numberDown!=0)) {
 					
 					posibleSolution = true;
-					
-					//Guardamos la posible solución para al tener todas calculadas elegir la que es mayor lexicograficamente
+
 					this.posibleSolutions[1][0] = i+1;
 					this.posibleSolutions[1][1] = j;
-					
-//					this.arrayData[i][j]=0; //Si es solucion ponemos a 0 la posicion actual para no volver a ella
 				}
 			}
-			//Sino, nos basta con que sea una unidad más que el actual
 			else {
-				
 				if((numberDown == numberActualPosition+1) && (numberDown!=0)) {
 					
 					posibleSolution = true;
 					
 					this.posibleSolutions[1][0] = i+1;
 					this.posibleSolutions[1][1] = j;
-					
-//					this.arrayData[i][j]=0;
 				}
 			}
 		}
@@ -452,28 +440,22 @@ public class Puzzle {
 		boolean posibleSolution =  false;
 		int numberActualPosition = this.arrayData[i][j];
 		
-		//Para i=0 no podemos ir hacia arriba porque se sale fuera de los bordes del array
+		//Bordes del array
 		if(j!=this.columns-1) {
 			
 			//Guardamos el numero que hay en la posicion de arriba
 			int numberRight = this.arrayData[i][j+1];
-			
-			//Si la posicion actual es el numero maximo del array, hay que buscar que el siguiente sea el minimo
+
 			if(numberActualPosition == this.max) {
 				
-				//Chequeamos que la posicion a la que vamos no sea 0, ya que eso indicaria que ya hemos pasado por ahi
 				if((numberRight== this.min) && (numberRight!=0)) {
 					
 					posibleSolution = true;
-					
-					//Guardamos la posible solución para al tener todas calculadas elegir la que es mayor lexicograficamente
+
 					this.posibleSolutions[2][0] = i;
 					this.posibleSolutions[2][1] = j+1;
-					
-//					this.arrayData[i][j]=0; //Si es solucion ponemos a 0 la posicion actual para no volver a ella
 				}
 			}
-			//Sino, nos basta con que sea una unidad más que el actual
 			else {
 				
 				if((numberRight == numberActualPosition+1) && (numberRight!=0)) {
@@ -482,8 +464,6 @@ public class Puzzle {
 					
 					this.posibleSolutions[2][0] = i;
 					this.posibleSolutions[2][1] = j+1;
-					
-//					this.arrayData[i][j]=0;
 				}
 			}
 		}
@@ -502,28 +482,21 @@ public class Puzzle {
 		boolean posibleSolution =  false;
 		int numberActualPosition = this.arrayData[i][j];
 		
-		//Para i=0 no podemos ir hacia arriba porque se sale fuera de los bordes del array
+		//Bordes del array
 		if(j!=0) {
-			
-			//Guardamos el numero que hay en la posicion de arriba
+
 			int numberLeft = this.arrayData[i][j-1];
-			
-			//Si la posicion actual es el numero maximo del array, hay que buscar que el siguiente sea el minimo
+
 			if(numberActualPosition == this.max) {
-				
-				//Chequeamos que la posicion a la que vamos no sea 0, ya que eso indicaria que ya hemos pasado por ahi
+
 				if((numberLeft== this.min) && (numberLeft!=0)) {
 					
 					posibleSolution = true;
-					
-					//Guardamos la posible solución para al tener todas calculadas elegir la que es mayor lexicograficamente
+
 					this.posibleSolutions[3][0] = i;
 					this.posibleSolutions[3][1] = j-1;
-					
-//					this.arrayData[i][j]=0; //Si es solucion ponemos a 0 la posicion actual para no volver a ella
 				}
 			}
-			//Sino, nos basta con que sea una unidad más que el actual
 			else {
 				
 				if((numberLeft == numberActualPosition+1) && (numberLeft!=0)) {
@@ -532,8 +505,6 @@ public class Puzzle {
 					
 					this.posibleSolutions[3][0] = i;
 					this.posibleSolutions[3][1] = j-1;
-					
-//					this.arrayData[i][j]=0;
 				}
 			}
 		}
@@ -552,28 +523,21 @@ public class Puzzle {
 		boolean posibleSolution =  false;
 		int numberActualPosition = this.arrayData[i][j];
 		
-		//Para i=0 no podemos ir hacia arriba porque se sale fuera de los bordes del array
+		//Bordes del array
 		if(i!=0 && j!=this.columns-1) {
-			
-			//Guardamos el numero que hay en la posicion de arriba
+
 			int numberUpRight = this.arrayData[i-1][j+1];
-			
-			//Si la posicion actual es el numero maximo del array, hay que buscar que el siguiente sea el minimo
+
 			if(numberActualPosition == this.max) {
-				
-				//Chequeamos que la posicion a la que vamos no sea 0, ya que eso indicaria que ya hemos pasado por ahi
+
 				if((numberUpRight== this.min) && (numberUpRight!=0)) {
 					
 					posibleSolution = true;
-					
-					//Guardamos la posible solución para al tener todas calculadas elegir la que es mayor lexicograficamente
+
 					this.posibleSolutions[4][0] = i-1;
 					this.posibleSolutions[4][1] = j+1;
-					
-//					this.arrayData[i][j]=0; //Si es solucion ponemos a 0 la posicion actual para no volver a ella
 				}
 			}
-			//Sino, nos basta con que sea una unidad más que el actual
 			else {
 				
 				if((numberUpRight == numberActualPosition+1) && (numberUpRight!=0)) {
@@ -582,8 +546,6 @@ public class Puzzle {
 					
 					this.posibleSolutions[4][0] = i-1;
 					this.posibleSolutions[4][1] = j+1;
-					
-//					this.arrayData[i][j]=0;
 				}
 			}
 		}
@@ -602,28 +564,21 @@ public class Puzzle {
 		boolean posibleSolution =  false;
 		int numberActualPosition = this.arrayData[i][j];
 		
-		//Para i=0 no podemos ir hacia arriba porque se sale fuera de los bordes del array
+		//Bordes del array
 		if(i!=0 && j!=0) {
-			
-			//Guardamos el numero que hay en la posicion de arriba
+
 			int numberUpLeft = this.arrayData[i-1][j-1];
-			
-			//Si la posicion actual es el numero maximo del array, hay que buscar que el siguiente sea el minimo
+
 			if(numberActualPosition == this.max) {
-				
-				//Chequeamos que la posicion a la que vamos no sea 0, ya que eso indicaria que ya hemos pasado por ahi
+
 				if((numberUpLeft== this.min) && (numberUpLeft!=0)) {
 					
 					posibleSolution = true;
-					
-					//Guardamos la posible solución para al tener todas calculadas elegir la que es mayor lexicograficamente
+
 					this.posibleSolutions[5][0] = i-1;
 					this.posibleSolutions[5][1] = j-1;
-					
-//					this.arrayData[i][j]=0; //Si es solucion ponemos a 0 la posicion actual para no volver a ella
 				}
 			}
-			//Sino, nos basta con que sea una unidad más que el actual
 			else {
 				
 				if((numberUpLeft == numberActualPosition+1) && (numberUpLeft!=0)) {
@@ -632,8 +587,6 @@ public class Puzzle {
 					
 					this.posibleSolutions[5][0] = i-1;
 					this.posibleSolutions[5][1] = j-1;
-					
-//					this.arrayData[i][j]=0;
 				}
 			}
 		}
@@ -652,28 +605,21 @@ public class Puzzle {
 		boolean posibleSolution =  false;
 		int numberActualPosition = this.arrayData[i][j];
 		
-		//Para i=0 no podemos ir hacia arriba porque se sale fuera de los bordes del array
+		//Bordes del array
 		if(i!=this.rows-1 && j!=this.columns-1) {
-			
-			//Guardamos el numero que hay en la posicion de arriba
+
 			int numberDownRight = this.arrayData[i+1][j+1];
-			
-			//Si la posicion actual es el numero maximo del array, hay que buscar que el siguiente sea el minimo
+
 			if(numberActualPosition == this.max) {
-				
-				//Chequeamos que la posicion a la que vamos no sea 0, ya que eso indicaria que ya hemos pasado por ahi
+
 				if((numberDownRight== this.min) && (numberDownRight!=0)) {
 					
 					posibleSolution = true;
-					
-					//Guardamos la posible solución para al tener todas calculadas elegir la que es mayor lexicograficamente
+
 					this.posibleSolutions[6][0] = i+1;
 					this.posibleSolutions[6][1] = j+1;
-					
-//					this.arrayData[i][j]=0; //Si es solucion ponemos a 0 la posicion actual para no volver a ella
 				}
 			}
-			//Sino, nos basta con que sea una unidad más que el actual
 			else {
 				
 				if((numberDownRight == numberActualPosition+1) && (numberDownRight!=0)) {
@@ -682,8 +628,6 @@ public class Puzzle {
 					
 					this.posibleSolutions[6][0] = i+1;
 					this.posibleSolutions[6][1] = j+1;
-					
-//					this.arrayData[i][j]=0;
 				}
 			}
 		}
@@ -702,28 +646,21 @@ public class Puzzle {
 		boolean posibleSolution =  false;
 		int numberActualPosition = this.arrayData[i][j];
 		
-		//Para i=0 no podemos ir hacia arriba porque se sale fuera de los bordes del array
+		//Bordes del array
 		if(i!=this.rows-1 && j!=0) {
-			
-			//Guardamos el numero que hay en la posicion de arriba
+
 			int numberDownLeft = this.arrayData[i+1][j-1];
-			
-			//Si la posicion actual es el numero maximo del array, hay que buscar que el siguiente sea el minimo
+
 			if(numberActualPosition == this.max) {
-				
-				//Chequeamos que la posicion a la que vamos no sea 0, ya que eso indicaria que ya hemos pasado por ahi
+
 				if((numberDownLeft== this.min) && (numberDownLeft!=0)) {
 					
 					posibleSolution = true;
-					
-					//Guardamos la posible solución para al tener todas calculadas elegir la que es mayor lexicograficamente
+
 					this.posibleSolutions[7][0] = i+1;
 					this.posibleSolutions[7][1] = j-1;
-					
-//					this.arrayData[i][j]=0; //Si es solucion ponemos a 0 la posicion actual para no volver a ella
 				}
 			}
-			//Sino, nos basta con que sea una unidad más que el actual
 			else {
 				
 				if((numberDownLeft == numberActualPosition+1) && (numberDownLeft!=0)) {
@@ -732,13 +669,46 @@ public class Puzzle {
 					
 					this.posibleSolutions[7][0] = i+1;
 					this.posibleSolutions[7][1] = j-1;
-					
-//					this.arrayData[i][j]=0;
 				}
 			}
 		}
 		
 		return posibleSolution;
+	}
+	
+	/**
+	* Method that checks if it is possible to play the game
+	* @param i, row in which we are situated
+	* @param j, column in which we are situated
+	* @return int, 0 if the game is not possible and if it is possible it will return the number of different games possible
+	*/
+	public int play(int i, int j) {
+		
+		int possibleGame = 0;
+		
+		/*IDEA: 
+		 * · Si lo que pasamos por parametro a los metodos de encontrar solucion es la ultima posicion, hemos encontrado solucion
+		 * · Si todos los metodos dan falso, backtracking
+		 * · Si uno o varios metodos dan true, comprobar en el array posibles soluciones cual es la mayor lexicografica
+		 * 		y esa es la posicion que pasaremos a los metodos en la siguiente pasada
+		 * 		Además, cuando encontremos la solución a la posicion actual ponerla a 0 para no volver a ella
+		 * */
+		
+		do {
+			
+			boolean up = this.checkUp(i, j);
+			boolean down = this.checkDown(i, j);
+			boolean right = this.checkRight(i, j);
+			boolean left = this.checkLeft(i, j);
+			boolean upRight = this.checkUpRight(i, j);
+			boolean upLeft = this.checkUpLeft(i, j);
+			boolean downRight = this.checkDownRight(i, j);
+			boolean downLeft = this.checkDownLeft(i, j);
+			
+		}
+		while(possibleGame!=0);
+		
+		return possibleGame;
 	}
 	
 }
