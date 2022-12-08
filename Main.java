@@ -15,6 +15,11 @@ public class Main {
 		int rows = game.getRows();
 		int columns = game.getColumns();
 		
+
+//		int rows = game.getArrayListData().size();                        
+//		int columns = game.getArrayListData().get(0).length;
+		
+		
 		//Recogemos la información del ususario
 		Boolean correctInput = game.getDataFromUser(scan);
 		

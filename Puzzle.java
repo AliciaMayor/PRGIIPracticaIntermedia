@@ -30,6 +30,8 @@ public class Puzzle {
 	 *   [i][j]  Abajo-Izquierda
 	 */  
 	
+	
+	
 	/**
 	* Getter
 	* @return arrayListData: the arrayList where the input data is saved
@@ -677,6 +679,49 @@ public class Puzzle {
 	}
 	
 	/**
+	* Method that draws the correspondent line to a position with the solution given
+	* @param i, row in which we are situated
+	* @param j, column in which we are situated
+	* @param x, position in the array of posible solutions that correspond to a specific path (up, down, leff...)
+	*/
+	public void drawLine(int x, int i, int j) {
+		
+		if(x==0) { //ARRIBA
+			
+			this.arrayDataWithSpaces[i*2-1][j*2] = "|";
+		}
+		if(x==1) { //ABAJO
+			
+			this.arrayDataWithSpaces[i*2+1][j*2] = "|";
+		}
+		if(x==2) { //DERECHA
+			
+			this.arrayDataWithSpaces[i*2][j*2+1] = "-";
+		}
+		if(x==3) { //IZQUIERDA
+			
+			this.arrayDataWithSpaces[i*2][j*2-1] = "-";
+		}
+		if(x==4) { //ARRIBA-DERECHA
+			
+			this.arrayDataWithSpaces[i*2-1][j*2+1] = "/";
+		}
+		if(x==5) { //ARRIBA-IZQUIERDA
+			
+			this.arrayDataWithSpaces[i*2-1][j*2-1] = "\\";
+		}
+		if(x==6) { //ABAJO-DERECHA
+			
+			this.arrayDataWithSpaces[i*2+1][j*2+1] = "\\";
+		}
+		if(x==7) { //ABAJO-IZQUIERDA
+			
+			this.arrayDataWithSpaces[i*2+1][j*2-1] = "/";
+		}
+		
+	}
+	
+	/**
 	* Method that checks if it is possible to play the game
 	* @param i, row in which we are situated
 	* @param j, column in which we are situated
@@ -685,6 +730,81 @@ public class Puzzle {
 	public int play(int i, int j) {
 		
 		int possibleGame = 0;
+		boolean up = this.checkUp(i, j);
+		boolean down = this.checkDown(i, j);
+		boolean right = this.checkRight(i, j);
+		boolean left = this.checkLeft(i, j);
+		boolean upRight = this.checkUpRight(i, j);
+		boolean upLeft = this.checkUpLeft(i, j);
+		boolean downRight = this.checkDownRight(i, j);
+		boolean downLeft = this.checkDownLeft(i, j);
+		int jnext = 0;
+		int inext = 0;
+		
+		//Si todos los metodos dan falso esque no hay una solucion que pueda partir de la primera pieza
+		if(!up && !down && !right && !left && !upRight && !upLeft && !downRight && !downLeft) {
+			
+			return possibleGame;
+		}
+		
+		//Recorremos el array de posibles soluciones para ver cual es la lexicograficamente mayor
+		
+		int jMaxSolutions = 0; //Miramos cual es la j(x) mayor
+		int jMaxSolutionsNumber = 0; //Posicion en el array del j correspondiente al numero mayor
+		int counterSamej = 0; //Contador para ver cuantos max j hay iguales
+		ArrayList<Integer> jPosibles = new ArrayList<Integer>(); //Guarda todos los j iguales que hay para poder comparar las i
+		int iMaxSolutions = 0; //Miramos cual es la i(y) mayor en caso de que haya dos j iguales
+		int iMaxSolutionsNumber = 0;
+		int counterSamei = 0;
+		ArrayList<Integer> iPosibles = new ArrayList<Integer>();
+		
+		//Vemos cual es el valor de x máximo dentro de las posibles soluciones
+		for(int jArray=0; jArray<8; jArray++) {
+			
+			if(this.posibleSolutions[jArray][1]>jMaxSolutions) {
+				
+				jMaxSolutions = this.posibleSolutions[jArray][1];
+				jMaxSolutionsNumber = jArray;
+			}
+		}
+		
+		//Vemos si hay varias posibles soluciones con el mismo valor maximo, metemos las posiciones en un arraylist
+		for(int x=0; x<8; x++) {
+			
+			if(this.posibleSolutions[x][1]==jMaxSolutions) {
+				
+				jMaxSolutions = this.posibleSolutions[x][1];
+				counterSamej++;
+				jPosibles.add(x);
+			}
+		}
+		
+		//Si solo hay un jmax, establecemos esa posicion como la viable y es la siguiente a la que jugaremos
+		if(counterSamej==1) {
+			
+			inext = this.posibleSolutions[jMaxSolutionsNumber][0];
+			jnext = this.posibleSolutions[jMaxSolutionsNumber][1];
+			
+			drawLine(jMaxSolutionsNumber, i, j);
+			
+		}
+		//Si hay más de una j posible, tendremos que comparar las i para ver cual es mayor lexicograficamente
+		else {
+			
+			for(int z=0; z<jPosibles.size(); z++) {
+				
+				if(jPosibles.get(z)>iMaxSolutions) {
+					
+					iMaxSolutions = jPosibles.get(z);
+					iMaxSolutionsNumber = z;
+				}
+			}
+			
+			inext = this.posibleSolutions[iMaxSolutionsNumber][0];
+			jnext = this.posibleSolutions[iMaxSolutionsNumber][1];
+			
+			drawLine(iMaxSolutionsNumber, i, j);
+		}
 		
 		/*IDEA: 
 		 * · Si lo que pasamos por parametro a los metodos de encontrar solucion es la ultima posicion, hemos encontrado solucion
@@ -694,19 +814,18 @@ public class Puzzle {
 		 * 		Además, cuando encontremos la solución a la posicion actual ponerla a 0 para no volver a ella
 		 * */
 		
-		do {
+		while((i==this.rows-1 && j==this.columns-1) || 
+			   !up && !down && !right && !left && !upRight && !upLeft && !downRight && !downLeft) {
 			
-			boolean up = this.checkUp(i, j);
-			boolean down = this.checkDown(i, j);
-			boolean right = this.checkRight(i, j);
-			boolean left = this.checkLeft(i, j);
-			boolean upRight = this.checkUpRight(i, j);
-			boolean upLeft = this.checkUpLeft(i, j);
-			boolean downRight = this.checkDownRight(i, j);
-			boolean downLeft = this.checkDownLeft(i, j);
-			
+			play(inext, jnext);
 		}
-		while(possibleGame!=0);
+		
+		if(i==this.rows-1 && j==this.columns-1) {
+			
+			possibleGame++;
+		}
+		
+		//HABRA QUE VOLVER A EMPEZAR PARA VER SI HAY OTRA SOLUCION QUE VAYA DIFERENTE, NI IDEA DE COMO SE HACE
 		
 		return possibleGame;
 	}
