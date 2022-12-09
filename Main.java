@@ -12,8 +12,7 @@ public class Main {
 		
 		Puzzle game = new Puzzle();
 		
-		int rows = game.getRows();
-		int columns = game.getColumns();
+		
 		
 
 //		int rows = game.getArrayListData().size();                        
@@ -23,14 +22,14 @@ public class Main {
 		//Recogemos la información del ususario
 		Boolean correctInput = game.getDataFromUser(scan);
 		
+		int rows = game.getRows();
+		int columns = game.getColumns();
+		
 		if(!correctInput){
 			
 			System.out.println("Entrada incorrecta."); //No se si es print o println, ver cuando pase los tests
 		}
 		else {
-			
-			//JUAMOS AL PUZZLE Y VEMOS LAS POSIBLES SOLUCIONES
-	//		System.out.println("Entrada correcta.");
 			
 			game.initializateArrays();
 			
@@ -42,7 +41,8 @@ public class Main {
 			}
 			
 			else {
-				
+//				
+				System.out.println("Entrada correcta."); //Borrar este system, que no nos lo piden
 				System.out.println(hasSolution);
 				
 				int rowsArrayWithSpaces = rows + (rows-1);

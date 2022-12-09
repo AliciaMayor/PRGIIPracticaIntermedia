@@ -756,34 +756,35 @@ public class Puzzle {
 		int iMaxSolutions = 0; //Miramos cual es la i(y) mayor en caso de que haya dos j iguales
 		int iMaxSolutionsNumber = 0;
 		int counterSamei = 0;
-		ArrayList<Integer> iPosibles = new ArrayList<Integer>();
+		ArrayList<int[]> iPosibles = new ArrayList<int[]>(); // [valor x, fila en el array de posibles soluciones]
 		
-		//Vemos cual es el valor de x máximo dentro de las posibles soluciones
-		for(int jArray=0; jArray<8; jArray++) {
+		//Vemos cual es el valor de i máximo dentro de las posibles soluciones
+		for(int iArray=0; iArray<8; iArray++) {
 			
-			if(this.posibleSolutions[jArray][1]>jMaxSolutions) {
+			if(this.posibleSolutions[iArray][0]>iMaxSolutions) {
 				
-				jMaxSolutions = this.posibleSolutions[jArray][1];
-				jMaxSolutionsNumber = jArray;
+				iMaxSolutions = this.posibleSolutions[iArray][0];
+				iMaxSolutionsNumber = iArray;
 			}
 		}
 		
 		//Vemos si hay varias posibles soluciones con el mismo valor maximo, metemos las posiciones en un arraylist
 		for(int x=0; x<8; x++) {
 			
-			if(this.posibleSolutions[x][1]==jMaxSolutions) {
+			if(this.posibleSolutions[x][0]==jMaxSolutions) {
 				
-				jMaxSolutions = this.posibleSolutions[x][1];
-				counterSamej++;
-				jPosibles.add(x);
+				iMaxSolutions = this.posibleSolutions[x][0];
+				counterSamei++;
+				int arrayAuxiliar[] = {this.posibleSolutions[x][1], x };
+ 				iPosibles.add(arrayAuxiliar); 
 			}
 		}
 		
 		//Si solo hay un jmax, establecemos esa posicion como la viable y es la siguiente a la que jugaremos
 		if(counterSamej==1) {
 			
-			inext = this.posibleSolutions[jMaxSolutionsNumber][0];
-			jnext = this.posibleSolutions[jMaxSolutionsNumber][1];
+			inext = this.posibleSolutions[iMaxSolutionsNumber][0];
+			jnext = this.posibleSolutions[iMaxSolutionsNumber][1];
 			
 			drawLine(jMaxSolutionsNumber, i, j);
 			
@@ -791,17 +792,17 @@ public class Puzzle {
 		//Si hay más de una j posible, tendremos que comparar las i para ver cual es mayor lexicograficamente
 		else {
 			
-			for(int z=0; z<jPosibles.size(); z++) {
+			for(int z=0; z<iPosibles.size(); z++) {
 				
-				if(jPosibles.get(z)>iMaxSolutions) {
+				if(iPosibles.get(z)[1]>jMaxSolutions) {
 					
-					iMaxSolutions = jPosibles.get(z);
-					iMaxSolutionsNumber = z;
+					jMaxSolutions = iPosibles.get(z)[0];
+					jMaxSolutionsNumber = iPosibles.get(z)[1];
 				}
 			}
 			
-			inext = this.posibleSolutions[iMaxSolutionsNumber][0];
-			jnext = this.posibleSolutions[iMaxSolutionsNumber][1];
+			inext = this.posibleSolutions[jMaxSolutionsNumber][0];
+			jnext = this.posibleSolutions[jMaxSolutionsNumber][1];
 			
 			drawLine(iMaxSolutionsNumber, i, j);
 		}
@@ -814,8 +815,8 @@ public class Puzzle {
 		 * 		Además, cuando encontremos la solución a la posicion actual ponerla a 0 para no volver a ella
 		 * */
 		
-		while((i==this.rows-1 && j==this.columns-1) || 
-			   !up && !down && !right && !left && !upRight && !upLeft && !downRight && !downLeft) {
+		while((i!=this.rows-1 && j!=this.columns-1) && 
+			   up || down || right || left || upRight || upLeft || downRight || downLeft) {
 			
 			play(inext, jnext);
 		}
